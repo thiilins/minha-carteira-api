@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "INSERT_YOUR_API_NAME",
+    "description": "INSERT_YOUR_API_DESCRIPTION",
+    "version": "1.0.0",
+    "contact": {
+      "email": "INSERT_DEV_EMAIL"
+    }
+  }
+}

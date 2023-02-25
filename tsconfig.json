@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@controllers/*": ["src/app/controllers/*"],
+      "@models/*": ["src/app/models/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@middlewares/*": ["src/app/middlewares/*"],
+      "@routes/*": ["src/app/routes/*"],
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

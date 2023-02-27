@@ -11,7 +11,7 @@ export class DeactivateUserUseCase {
       },
     })
 
-    if (userAlreadyExists) {
+    if (!userAlreadyExists) {
       return AppError('User does not exists!', 404)
     }
     const enable = userAlreadyExists!.enable

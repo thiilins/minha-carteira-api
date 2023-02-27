@@ -62,7 +62,6 @@ export class UsersController {
       admin,
       avatar,
     })
-
     return result.success
       ? res.status(200).json(result.data)
       : res.status(result.error!).json(result.message)

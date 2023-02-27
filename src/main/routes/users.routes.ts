@@ -6,10 +6,10 @@ const { create, del, list, listById, update, deactivate } =
   new UsersController()
 
 router.get('/', list)
-router.get('/deactivate/:id', deactivate)
+router.get('/status/:id', deactivate)
 router.get('/:id', listById)
 router.post('/', create)
-router.patch('/', update)
+router.patch('/:id', update)
 router.delete('/', del)
 
 export default router

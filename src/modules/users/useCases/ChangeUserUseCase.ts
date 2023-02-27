@@ -22,7 +22,7 @@ export class ChangeUserUseCase {
       },
     })
 
-    if (userAlreadyExists) {
+    if (!userAlreadyExists) {
       return AppError('User does not exist!', 404)
     }
 

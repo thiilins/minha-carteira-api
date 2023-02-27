@@ -12,7 +12,9 @@ export class UsersController {
 
     const result = await getAllUserUseCase.execute()
 
-    return res.status(201).json(result)
+    return result.success
+      ? res.status(200).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
   async listById(req: Request, res: Response) {
     const { id } = req.params
@@ -23,7 +25,9 @@ export class UsersController {
       id,
     })
 
-    return res.status(result.error ?? 200).json(result.message ?? result.data)
+    return result.success
+      ? res.status(200).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
   async create(req: Request, res: Response) {
     const { name, email, password, telefone, admin, avatar } = req.body
@@ -39,7 +43,9 @@ export class UsersController {
       avatar,
     })
 
-    return res.status(result.error ?? 201).json(result.message ?? result.data)
+    return result.success
+      ? res.status(201).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
   async update(req: Request, res: Response) {
     const { name, email, password, telefone, admin, avatar } = req.body
@@ -57,10 +63,12 @@ export class UsersController {
       avatar,
     })
 
-    return res.status(result.error ?? 200).json(result.message ?? result.data)
+    return result.success
+      ? res.status(200).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
 
-  async delete(req: Request, res: Response) {
+  async del(req: Request, res: Response) {
     const { id } = req.params
     const deleteUserUseCase = new DeleteUserUseCase()
 
@@ -68,7 +76,9 @@ export class UsersController {
       id,
     })
 
-    return res.status(result.error ?? 200).json(result.message ?? result.data)
+    return result.success
+      ? res.status(200).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
   async deactivate(req: Request, res: Response) {
     const { id } = req.params
@@ -79,6 +89,8 @@ export class UsersController {
       id,
     })
 
-    return res.status(result.error ?? 200).json(result.message ?? result.data)
+    return result.success
+      ? res.status(200).json(result.data)
+      : res.status(result.error!).json(result.message)
   }
 }

@@ -5,7 +5,7 @@ import { User } from '@prisma/client'
 
 import { ForgotPasswordDTO } from '../dtos/ForgotPasswordDTO'
 
-export class GetExpenseByIDUseCase {
+export class ForgotPasswordUseCase {
   async execute({ email }: ForgotPasswordDTO): Promise<UseCaseResponse<User>> {
     const data = await prisma.user.findUnique({
       where: {

@@ -1,12 +1,13 @@
+import { ExpensesController } from '@modules/expenses/expenses.controller'
 import { Router } from 'express'
 
-import { Add, Delete, Edit, List } from '../controller/expense.controller'
-
 const router = Router()
+const { create, del, list, listById, update } = new ExpensesController()
 
-router.post('/', Add)
-router.get('/', List)
-router.patch('/', Edit)
-router.delete('/', Delete)
+router.get('/', list)
+router.get('/:id', listById)
+router.post('/', create)
+router.patch('/', update)
+router.delete('/', del)
 
 export default router

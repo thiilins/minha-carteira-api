@@ -1,10 +1,10 @@
+import { AuthController } from '@modules/auth/auth.controller'
 import { Router } from 'express'
 
-import { ForgotPassword, Login } from '../controller/auth.controller'
-
 const router = Router()
+const { forgoPassword, login } = new AuthController()
 
-router.post('/login', Login)
-router.get('/forgot-password', ForgotPassword)
+router.get('/login', login)
+router.get('/forgot-password', forgoPassword)
 
 export default router

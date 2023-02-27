@@ -1,7 +1,7 @@
 export interface ChangeUserDTO {
   id: string
   email: string
-  telefone: number
+  telefone?: string
   name?: string
   password: string
   admin?: boolean

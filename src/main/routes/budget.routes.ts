@@ -1,12 +1,13 @@
+import { BudgetController } from '@modules/budget/budget.controller'
 import { Router } from 'express'
 
-import { Add, Delete, Edit, List } from '../controller/entry.controller'
-
 const router = Router()
+const { create, del, list, listById, update } = new BudgetController()
 
-router.post('/', Add)
-router.get('/', List)
-router.patch('/', Edit)
-router.delete('/', Delete)
+router.get('/', list)
+router.get('/:id', listById)
+router.post('/', create)
+router.patch('/', update)
+router.delete('/', del)
 
 export default router

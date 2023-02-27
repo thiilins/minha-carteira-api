@@ -35,6 +35,6 @@ export class CreateUserUseCase {
       },
     })
 
-    return { success: true, data }
+    return { data, success: true }
   }
 }

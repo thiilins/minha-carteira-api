@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  email      String    @unique
+  telefone   BigInt
+  name       String?   @db.VarChar(255)
+  password   String    @db.VarChar(255)
+  admin      Boolean   @default(false)
+  avatar     String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Expenses           Expenses[]
+  Entrys             Entries[]
+  ExpensesCategories ExpensesCategories[]
+  EntryCategories    EntriesCategories[]
+  Budget             BudgetsCategories[]
+  GeneralBudget      GeneralBudget[]
+  Savings            Savings[]
+
+  @@map("users")
+}
+
+model Expenses {
+  id               String    @id @default(uuid())
+  title            String
+  date             DateTime
+  amount           Float
+  recurrent        Boolean   @default(false)
+  recurrent_number Int?
+  category_id      String
+  user_id          String
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  deleted_at       DateTime?
+
+  User               User               @relation(fields: [user_id], references: [id])
+  ExpensesCategories ExpensesCategories @relation(fields: [category_id], references: [id])
+
+  @@map("expenses")
+}
+
+model Entries {
+  id               String    @id @default(uuid())
+  title            String
+  date             DateTime
+  amount           Float
+  recurrent        Boolean   @default(false)
+  recurrent_number Int?
+  user_id          String
+  category_id      String
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  deleted_at       DateTime?
+
+  EntriesCategories EntriesCategories @relation(fields: [category_id], references: [id])
+  User              User              @relation(fields: [user_id], references: [id])
+
+  @@map("entries")
+}
+
+model ExpensesCategories {
+  id          String    @id @default(uuid())
+  user_id     String
+  name        String
+  icon        String?
+  reminder    Boolean   @default(false)
+  remind_time DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  User              User                @relation(fields: [user_id], references: [id])
+  Expenses          Expenses[]
+  BudgetsCategories BudgetsCategories[]
+
+  @@map("expenses_categories")
+}
+
+model EntriesCategories {
+  id         String    @id @default(uuid())
+  user_id    String
+  name       String
+  icon       String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  User    User      @relation(fields: [user_id], references: [id])
+  Entries Entries[]
+
+  @@map("entries_categories")
+}
+
+model BudgetsCategories {
+  id          String    @id @default(uuid())
+  budget      Float
+  user_id     String
+  month       String
+  category_id String?
+  budget_id   String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  User               User                @relation(fields: [user_id], references: [id])
+  ExpensesCategories ExpensesCategories? @relation(fields: [category_id], references: [id])
+  GeneralBudget      GeneralBudget?      @relation(fields: [budget_id], references: [id])
+
+  @@map("budget_categories")
+}
+
+model GeneralBudget {
+  id                String              @id @default(uuid())
+  budget            Float
+  user_id           String
+  month             String
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  deleted_at        DateTime?
+  User              User                @relation(fields: [user_id], references: [id])
+  BudgetsCategories BudgetsCategories[]
+
+  @@map("budget")
+}
+
+model Savings {
+  id         String    @id @default(uuid())
+  goal       Float
+  user_id    String
+  month      String?
+  year       BigInt?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  User       User      @relation(fields: [user_id], references: [id])
+
+  @@map("savings")
+}

@@ -3,6 +3,4 @@ export interface ChangeExpenseCategoryDTO {
   user_id: string
   name: string
   icon: string
-  reminder?: boolean
-  remind_time?: string
 }

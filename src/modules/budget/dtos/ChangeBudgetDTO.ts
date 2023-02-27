@@ -1,6 +1,6 @@
-export interface CreateBudgetDTO {
+export interface ChangeBudgetDTO {
   id: string
-  budget: string
+  budget: number
   user_id: string
   month: string
 }

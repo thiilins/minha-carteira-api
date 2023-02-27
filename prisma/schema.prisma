@@ -15,6 +15,7 @@ model User {
   password   String    @db.VarChar(255)
   admin      Boolean   @default(false)
   avatar     String?
+  enable     Boolean   @default(true)
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
@@ -36,15 +37,17 @@ model Expenses {
   date             DateTime
   amount           Float
   recurrent        Boolean   @default(false)
+  remind           Boolean   @default(false)
+  remind_time      DateTime?
   recurrent_number Int?
-  category_id      String
+  category_id      String?
   user_id          String
   created_at       DateTime  @default(now())
   updated_at       DateTime  @updatedAt
   deleted_at       DateTime?
 
-  User               User               @relation(fields: [user_id], references: [id])
-  ExpensesCategories ExpensesCategories @relation(fields: [category_id], references: [id])
+  User               User                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  ExpensesCategories ExpensesCategories? @relation(fields: [category_id], references: [id], onDelete: SetNull)
 
   @@map("expenses")
 }
@@ -56,30 +59,31 @@ model Entries {
   amount           Float
   recurrent        Boolean   @default(false)
   recurrent_number Int?
+  remind           Boolean   @default(false)
+  remind_time      DateTime?
   user_id          String
-  category_id      String
+  category_id      String?
   created_at       DateTime  @default(now())
   updated_at       DateTime  @updatedAt
   deleted_at       DateTime?
 
-  EntriesCategories EntriesCategories @relation(fields: [category_id], references: [id])
-  User              User              @relation(fields: [user_id], references: [id])
+  EntriesCategories EntriesCategories? @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  User              User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("entries")
 }
 
 model ExpensesCategories {
-  id          String    @id @default(uuid())
-  user_id     String
-  name        String
-  icon        String?
-  reminder    Boolean   @default(false)
-  remind_time DateTime?
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  deleted_at  DateTime?
+  id         String    @id @default(uuid())
+  user_id    String
+  name       String
+  icon       String?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 
-  User              User                @relation(fields: [user_id], references: [id])
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
   Expenses          Expenses[]
   BudgetsCategories BudgetsCategories[]
 
@@ -95,7 +99,8 @@ model EntriesCategories {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  User    User      @relation(fields: [user_id], references: [id])
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
   Entries Entries[]
 
   @@map("entries_categories")
@@ -112,23 +117,25 @@ model BudgetsCategories {
   updated_at  DateTime  @updatedAt
   deleted_at  DateTime?
 
-  User               User                @relation(fields: [user_id], references: [id])
-  ExpensesCategories ExpensesCategories? @relation(fields: [category_id], references: [id])
-  GeneralBudget      GeneralBudget?      @relation(fields: [budget_id], references: [id])
+  User               User                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  ExpensesCategories ExpensesCategories? @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  GeneralBudget      GeneralBudget?      @relation(fields: [budget_id], references: [id], onDelete: Cascade)
 
   @@map("budget_categories")
 }
 
 model GeneralBudget {
-  id                String              @id @default(uuid())
-  budget            Float
-  user_id           String
-  month             String
-  created_at        DateTime            @default(now())
-  updated_at        DateTime            @updatedAt
-  deleted_at        DateTime?
-  User              User                @relation(fields: [user_id], references: [id])
+  id         String    @id @default(uuid())
+  budget     Float
+  user_id    String
+  month      String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
   BudgetsCategories BudgetsCategories[]
+
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("budget")
 }
@@ -142,7 +149,8 @@ model Savings {
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
-  User       User      @relation(fields: [user_id], references: [id])
+
+  User User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("savings")
 }

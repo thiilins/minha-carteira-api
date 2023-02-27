@@ -10,10 +10,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "@helpers/*": ["./src/helpers/*"],
-      "@models/*": ["./src/models/*"],
       "@modules/*": ["./src/modules/*"],
-      "@prismaClient/*": ["./src/prisma/*"],
-      "@middlewares/*": ["./src/middlewares/*"]
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@config/*": ["./src/config/*"]
     },
     "allowJs": true,
     "esModuleInterop": true,

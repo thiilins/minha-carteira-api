@@ -3,5 +3,5 @@ export interface ChangeSavingDTO {
   goal: number
   user_id: string
   month?: string
-  year?: string
+  year?: number
 }

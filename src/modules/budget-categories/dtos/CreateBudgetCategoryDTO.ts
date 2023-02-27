@@ -1,5 +1,5 @@
 export interface CreateBudgetCategoryDTO {
-  budget: string
+  budget: number
   user_id: string
   month: string
   category_id?: string

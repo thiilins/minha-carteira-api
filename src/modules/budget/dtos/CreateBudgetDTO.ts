@@ -1,5 +1,5 @@
 export interface CreateBudgetDTO {
-  budget: string
+  budget: number
   user_id: string
   month: string
 }

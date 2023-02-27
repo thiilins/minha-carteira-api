@@ -10,9 +10,9 @@ module.exports = {
         alias: {
           '@': './src',
           '@helpers': './src/helpers',
-          '@models': './src/models',
           '@modules': './src/modules',
           '@middlewares': './src/middlewares',
+          '@config': './src/config',
         },
       },
     ],

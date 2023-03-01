@@ -1,3 +1,4 @@
+import crypto from '@/helpers/crypto'
 import { Request, Response } from 'express'
 
 import { GetUserProfileUseCase } from './GetUserProfileUseCase'
@@ -13,7 +14,7 @@ export class GetUserProfileController {
 
     if (result.success && result.data) {
       const { password, ...user } = result.data
-      return res.status(200).json(user)
+      return res.status(200).json({ user, password: '**********' })
     }
     return res.status(result.error!).json(result.message)
   }

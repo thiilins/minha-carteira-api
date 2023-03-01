@@ -129,6 +129,7 @@ model GeneralBudget {
   budget     Float
   user_id    String
   month      String
+  year       String
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?

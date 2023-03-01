@@ -3,4 +3,5 @@ export interface ChangeBudgetDTO {
   budget: number
   user_id: string
   month: string
+  year: string
 }

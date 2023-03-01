@@ -1,34 +1,30 @@
+import { prisma } from '@/config/prisma'
 import { AppError } from '@/errors/AppErrors'
 import { UseCaseResponse } from '@/types/useCaseResponse'
-import { prisma } from '@config/prisma'
 import { User } from '@prisma/client'
 
-import { ChangeUserDTO } from '../dtos/ChangeUserDTO'
+import { CreateUserDTO } from '../../dtos/CreateUserDTO'
 
-export class ChangeUserUseCase {
+export class CreateUserUseCase {
   async execute({
-    id,
     name,
     email,
     password,
     telefone,
     admin,
     avatar,
-  }: ChangeUserDTO): Promise<UseCaseResponse<User>> {
-    // Verificar se o usuário existe
+  }: CreateUserDTO): Promise<UseCaseResponse<User>> {
     const userAlreadyExists = await prisma.user.findUnique({
       where: {
-        id,
+        email,
       },
     })
 
-    if (!userAlreadyExists) {
-      return AppError('User does not exist!', 404)
+    if (userAlreadyExists) {
+      return AppError('User already exists!', 400)
     }
 
-    // Criar o usuário
-    const data = await prisma.user.update({
-      where: { id },
+    const data = await prisma.user.create({
       data: {
         name,
         email,
@@ -39,6 +35,6 @@ export class ChangeUserUseCase {
       },
     })
 
-    return { success: true, data }
+    return { data, success: true }
   }
 }

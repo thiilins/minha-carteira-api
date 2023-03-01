@@ -9,12 +9,14 @@ export class CreateBudgetUseCase {
     budget,
     month,
     user_id,
+    year,
   }: CreateBudgetDTO): Promise<UseCaseResponse<GeneralBudget>> {
     const data = await prisma.generalBudget.create({
       data: {
         budget,
         month,
         user_id,
+        year,
       },
     })
 

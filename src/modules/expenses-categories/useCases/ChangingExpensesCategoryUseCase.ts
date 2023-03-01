@@ -2,7 +2,7 @@ import { AppError } from '@/errors/AppErrors'
 import { prisma } from '@config/prisma'
 import { ExpensesCategories } from '@prisma/client'
 
-import { UseCaseResponse } from '../../../types/useCaseResponse'
+import { UseCaseResponse } from '../../../@types/useCaseResponse'
 import { ChangeExpenseCategoryDTO } from '../dtos/ChangeExpenseCategoryDTO'
 
 export class ChangingExpensesCategoryUseCase {

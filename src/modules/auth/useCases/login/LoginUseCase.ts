@@ -1,20 +1,18 @@
 import { UseCaseResponse } from '@/@types/useCaseResponse'
-import { AppError } from '@/errors/AppErrors'
 import { prisma } from '@config/prisma'
 import { User } from '@prisma/client'
 
-import { ForgotPasswordDTO } from '../dtos/ForgotPasswordDTO'
+import { LoginDTO } from '../../dtos/LoginDTO'
 
-export class ForgotPasswordUseCase {
-  async execute({ email }: ForgotPasswordDTO): Promise<UseCaseResponse<User>> {
+export class LoginUseCase {
+  async execute({ email }: LoginDTO): Promise<UseCaseResponse<User | null>> {
     const data = await prisma.user.findUnique({
       where: {
         email,
       },
     })
-
     if (!data) {
-      return AppError('User not exists!', 404)
+      return { success: false, error: 400, message: 'User does not exists!' }
     }
     return { success: true, data }
   }

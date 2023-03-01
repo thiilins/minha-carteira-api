@@ -1,5 +1,5 @@
+import { UseCaseResponse } from '@/@types/useCaseResponse'
 import { AppError } from '@/errors/AppErrors'
-import { UseCaseResponse } from '@/types/useCaseResponse'
 import { prisma } from '@config/prisma'
 import { GeneralBudget } from '@prisma/client'
 export class GetBudgetByIDUseCase {

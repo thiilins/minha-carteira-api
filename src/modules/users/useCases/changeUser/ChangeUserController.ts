@@ -7,6 +7,10 @@ export class ChangeUserController {
   async handle(req: Request, res: Response) {
     const { name, email, password, telefone, admin, avatar } = req.body
     const { id } = req.params
+    const { id: user_id, is_admin } = req.user!
+    if (!is_admin && user_id !== id) {
+      return res.status(401).json('Unauthorized access!')
+    }
     const cryptPass = crypto.create(password)
     const changeUserUseCase = new ChangeUserUseCase()
 
@@ -16,11 +20,13 @@ export class ChangeUserController {
       email,
       password: cryptPass,
       telefone,
-      admin,
+      admin: is_admin ? admin : false,
       avatar,
     })
-    return result.success
-      ? res.status(200).json(result.data)
-      : res.status(result.error!).json(result.message)
+    if (result.success && result.data) {
+      const { password, ...user } = result.data
+      res.status(200).json(user)
+    }
+    return res.status(result.error!).json(result.message)
   }
 }

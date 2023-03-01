@@ -11,8 +11,10 @@ export class DeactivateUserController {
       id,
     })
 
-    return result.success
-      ? res.status(200).json(result.data)
-      : res.status(result.error!).json(result.message)
+    if (result.success && result.data) {
+      const { enable } = result.data
+      return res.status(200).json({ status: enable })
+    }
+    return res.status(result.error!).json(result.message)
   }
 }

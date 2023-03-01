@@ -1,5 +1,5 @@
+import { UseCaseResponse } from '@/@types/useCaseResponse'
 import { prisma } from '@/config/prisma'
-import { UseCaseResponse } from '@/types/useCaseResponse'
 import { Expenses } from '@prisma/client'
 
 import { CreateExpenseDTO } from '../dtos/CreateExpenseDTO'

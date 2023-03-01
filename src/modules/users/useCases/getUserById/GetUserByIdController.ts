@@ -11,8 +11,13 @@ export class GetUserByIdController {
       id,
     })
 
-    return result.success
-      ? res.status(200).json(result.data)
-      : res.status(result.error!).json(result.message)
+    if (result.success && result.data) {
+      const user = result.data.map(item => {
+        const { password, ...user } = item
+        return user
+      })
+      return res.status(200).json(user)
+    }
+    return res.status(result.error!).json(result.message)
   }
 }

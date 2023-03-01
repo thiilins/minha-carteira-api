@@ -1,5 +1,5 @@
+import { UseCaseResponse } from '@/@types/useCaseResponse'
 import { prisma } from '@/config/prisma'
-import { UseCaseResponse } from '@/types/useCaseResponse'
 import { BudgetsCategories } from '@prisma/client'
 
 import { CreateBudgetCategoryDTO } from '../dtos/CreateBudgetCategoryDTO'

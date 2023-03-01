@@ -9,9 +9,9 @@ export class DeleteUserController {
     const result = await deleteUserUseCase.execute({
       id,
     })
-
-    return result.success
-      ? res.status(200).json(result.data)
-      : res.status(result.error!).json(result.message)
+    if (result.success && result.data) {
+      return res.status(204).send()
+    }
+    return res.status(result.error!).json(result.message)
   }
 }

@@ -1,6 +1,6 @@
+import { UseCaseResponse } from '@/@types/useCaseResponse'
 import { prisma } from '@/config/prisma'
 import { AppError } from '@/errors/AppErrors'
-import { UseCaseResponse } from '@/types/useCaseResponse'
 import { User } from '@prisma/client'
 
 import { CreateUserDTO } from '../../dtos/CreateUserDTO'

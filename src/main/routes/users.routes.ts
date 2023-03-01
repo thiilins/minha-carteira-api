@@ -1,5 +1,6 @@
 import { ChangeUserController } from '@/modules/users/useCases/changeUser/ChangeUserController'
 import { GetAllUsersController } from '@/modules/users/useCases/getAllUsers/GetAllUsersController'
+import { VerifyUserPasswordController } from '@/modules/users/useCases/verifyUserPassword/verifyUserPasswordController'
 import { CreateUserController } from '@modules/users/useCases/createUser/CreateUserController'
 import { DeactivateUserController } from '@modules/users/useCases/deactivateUser/DeactivateUserController'
 import { DeleteUserController } from '@modules/users/useCases/deleteUser/DeleteUserController'
@@ -12,7 +13,7 @@ const deactivateUserController = new DeactivateUserController()
 const deleteUserController = new DeleteUserController()
 const getAllUserController = new GetAllUsersController()
 const getUserByIdController = new GetUserByIdController()
-
+const verifyUserPasswordController = new VerifyUserPasswordController()
 const router = Router()
 
 router.get('/', getAllUserController.handle)
@@ -21,5 +22,5 @@ router.get('/:id', getUserByIdController.handle)
 router.post('/', createUserController.handle)
 router.patch('/:id', changeUserController.handle)
 router.delete('/', deleteUserController.handle)
-
+router.post('/validate-password', verifyUserPasswordController.handle)
 export default router

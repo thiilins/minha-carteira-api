@@ -1,5 +1,5 @@
-import { AppError } from '@/errors/AppErrors'
 import { UseCaseResponse } from '@/@types/useCaseResponse'
+import { AppError } from '@/errors/AppErrors'
 import { prisma } from '@config/prisma'
 import { BudgetsCategories } from '@prisma/client'
 
